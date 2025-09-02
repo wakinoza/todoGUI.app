@@ -24,9 +24,9 @@ public class MainFrame extends JFrame {
 
     setLayout(new BorderLayout());
 
-    add(view.getTodoListScrollPane(), BorderLayout.NORTH);
-    add(view.getMemoPanel(), BorderLayout.CENTER);
+    add(view.getTodoListPanel(), BorderLayout.CENTER);
+    add(view.getTodoCreatePanel(), BorderLayout.EAST);
 
-    control.setupMemoListeners();
+    control.setupTodoCreateListeners();
   }
 }
