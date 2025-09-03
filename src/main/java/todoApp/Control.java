@@ -55,7 +55,7 @@ public class Control {
     });
 
     //テキスト削除ボタン
-    VIEW.getTodoTextClearButton().addActionListener(e -> VIEW.getTodoTextArea().setText(""));
+    VIEW.getTextClearButton().addActionListener(e -> VIEW.getTextArea().setText(""));
 
   }
 
