@@ -110,7 +110,7 @@ public class Control {
       String fileName = e.getActionCommand();
       try {
         MODEL.clearTodoFile(fileName);
-        makeHistoryPanel();
+        makeTodoListPanel();
         JOptionPane.showMessageDialog(null, "todoを削除しました。", "Information",
             JOptionPane.INFORMATION_MESSAGE);
       } catch (IOException ex) {
@@ -123,7 +123,7 @@ public class Control {
   /**.
    * 履歴表示の再構成を指示するメソッド
    */
-  public void makeHistoryPanel() {
+  public void makeTodoListPanel() {
     Map<String, String> pendingFileNames = MODEL.getPendingTodoList();
     Map<String, String> progressFileNames = MODEL.getprogressTodoList();
     Map<String, String> CompletedFileNames = MODEL.getCompletedTodoList();
