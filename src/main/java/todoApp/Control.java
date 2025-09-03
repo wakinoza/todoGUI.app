@@ -1,7 +1,6 @@
 package todoApp;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -35,7 +34,7 @@ public class Control {
 
     //todo保存ボタン
     VIEW.getSaveButton().addActionListener(e -> {
-      String content = VIEW.getTodoTextArea().getText();
+      String content = VIEW.getTextInput().getText();
 
       if (content.isEmpty()) {
         JOptionPane.showMessageDialog(null, "内容が記載されていません。", "Error", JOptionPane.ERROR_MESSAGE);
@@ -46,7 +45,7 @@ public class Control {
         MODEL.saveTodo(content);
         JOptionPane.showMessageDialog(null, "todoが保存されました。", "information",
             JOptionPane.INFORMATION_MESSAGE);
-        VIEW.getTodoTextArea().setText("");
+        VIEW.setTextInputContent("");
         makeTodoListPanel();
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(null, "todoの保存に失敗しました。", "Error",
@@ -55,7 +54,7 @@ public class Control {
     });
 
     //テキスト削除ボタン
-    VIEW.getTextClearButton().addActionListener(e -> VIEW.getTextArea().setText(""));
+    VIEW.getTextClearButton().addActionListener(e -> VIEW.setTextInputContent(""));
 
   }
 
@@ -102,11 +101,11 @@ public class Control {
   /**.
    * 完了したtodoを削除するメソッド
    *
-   * @param clearCompletedTodoButton clearCompletedTodoButtonのインスタンスへの参照
+   * @param clearTodoButton clearTodoButtonのインスタンスへの参照
    */
-  public void setupClearCompletedTodoListener(JButton clearCompletedTodoButton) {
+  public void setupClearTodoListener(JButton clearTodoButton) {
 
-    clearCompletedTodoButton.addActionListener(e -> {
+    clearTodoButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
       try {
         MODEL.clearTodoFile(fileName);
@@ -114,7 +113,7 @@ public class Control {
         JOptionPane.showMessageDialog(null, "todoを削除しました。", "Information",
             JOptionPane.INFORMATION_MESSAGE);
       } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "ファイルの削除に失敗しました。", "Error",
+        JOptionPane.showMessageDialog(null, "todoの削除に失敗しました。", "Error",
             JOptionPane.ERROR_MESSAGE);
       }
     });

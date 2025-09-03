@@ -2,10 +2,12 @@ package todoApp;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 /**.
@@ -34,7 +36,7 @@ public class View {
     TODO_CREATE_PANEL = new JPanel();
     TODO_CREATE_PANEL.setLayout(new BoxLayout(TODO_CREATE_PANEL, BoxLayout.Y_AXIS));
 
-    JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください")
+    JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください");
 
     JLabel textLabel = new JLabel("やりたいこと");
     TEXT_INPUT= new JTextField();
@@ -108,7 +110,7 @@ public class View {
    *
    * @return TODO_LIST_PANELへの参照
    */@SuppressWarnings("EI_EXPOSE_REP")
-  public JPanel getTOdoListPanel() {
+  public JPanel getTodoListPanel() {
     return this.TODO_LIST_PANEL;
   }
 
@@ -121,41 +123,97 @@ public class View {
     TEXT_INPUT.setText(content);
   }
 
-  /**.
-   * 履歴のUIを作成するメソッド
-   *
-   * @param fileNames 保存されているメモのファイル名のリスト
-   */
-  public void updateHistoryPanel(List<String> fileNames, Control control) {
 
-    JPanel historyContainerPanel = new JPanel();
-    historyContainerPanel.setLayout(new BoxLayout(historyContainerPanel, BoxLayout.Y_AXIS));
+  public void updateTodoListPanel(Map<String, String> pendingFileNames, Map<String, String> progressFileNames, Map<String, String> CompletedFileNames, Control control); {
 
-    for (String fileName : fileNames) {
-      JPanel historyPanel = new JPanel();
-      historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.X_AXIS));
+    JScrollPane todoListContainerPanel = new JScrollPane();
+    todoListContainerPanel.setLayout(new BoxLayout(todoListContainerPanel, BoxLayout.X_AXIS));
 
-      JLabel fileNameLabel = new JLabel(fileName);
-      historyPanel.add(fileNameLabel);
+    //未実施のtodoリストを表示するJpanelを作成
+    JPanel pendingListPanel = new JPanel();
+    pendingListPanel.setLayout(new BoxLayout(pendingListPanel, BoxLayout.Y_AXIS));
 
-      JButton editButton = new JButton("再編集");
-      editButton.setActionCommand(fileName);
-      control.setupEditListener(editButton);
+    for(Map.Entry<String, String> entry : pendingFileNames.entrySet()){
 
-      JButton clearHistoryButton = new JButton("履歴削除");
-      clearHistoryButton.setActionCommand(fileName);
-      clearHistoryButton.setForeground(Color.RED);
-      control.setupClearHistoryListener(clearHistoryButton);
+      JPanel todoPanel = new JPanel();
+      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
 
-      historyPanel.add(editButton);
-      historyPanel.add(clearHistoryButton);
+      JLabel todoNameLabel = new JLabel(entry.getValue());
 
-      historyContainerPanel.add(historyPanel);
+      JButton progressButton = new JButton("進行中へ");
+      progressButton.setActionCommand(entry.getKey());
+      control.setupProgressListener(progressButton);
+
+      JButton clearTodoButton = new JButton("todo削除");
+      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setForeground(Color.RED);
+      control.setupClearTodoListener(clearTodoButton);
+
+      todoPanel.add(todoNameLabel);
+      todoPanel.add(progressButton);
+      todoPanel.add(clearTodoButton);
+
+      pendingListPanel.add(todoPanel);
 
     }
-    HISTORY_SCROLL_PANE.setViewportView(historyContainerPanel);
+    todoListContainerPanel.add(pendingListPanel);
 
-    HISTORY_SCROLL_PANE.revalidate();
-    HISTORY_SCROLL_PANE.repaint();
+    //進行中のtodoリストを表示するJpanelを作成
+    JPanel progressListPanel = new JPanel();
+    progressListPanel.setLayout(new BoxLayout(progressListPanel, BoxLayout.Y_AXIS));
+
+    for(Map.Entry<String, String> entry : progressFileNames.entrySet()){
+
+      JPanel todoPanel = new JPanel();
+      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
+
+      JLabel todoNameLabel = new JLabel(entry.getValue());
+
+      JButton completedButton = new JButton("完了へ");
+      completedButton.setActionCommand(entry.getKey());
+      control.setupProgressListener(completedButton);
+
+      JButton clearTodoButton = new JButton("todo削除");
+      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setForeground(Color.RED);
+      control.setupClearTodoListener(clearTodoButton);
+
+      todoPanel.add(todoNameLabel);
+      todoPanel.add(completedButton);
+      todoPanel.add(clearTodoButton);
+
+      progressListPanel.add(todoPanel);
+
+    }
+    todoListContainerPanel.add(progressListPanel);
+
+    //完了のtodoリストを表示するJpanelを作成
+    JPanel CompletedListPanel = new JPanel();
+    CompletedListPanel.setLayout(new BoxLayout(CompletedListPanel, BoxLayout.Y_AXIS));
+
+    for(Map.Entry<String, String> entry : CompletedFileNames.entrySet()){
+
+      JPanel todoPanel = new JPanel();
+      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
+
+      JLabel todoNameLabel = new JLabel(entry.getValue());
+
+      JButton clearTodoButton = new JButton("todo削除");
+      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setForeground(Color.RED);
+      control.setupClearTodoListener(clearTodoButton);
+
+      todoPanel.add(todoNameLabel);
+      todoPanel.add(clearTodoButton);
+
+      CompletedListPanel.add(todoPanel);
+
+    }
+    todoListContainerPanel.add(CompletedListPanel);
+
+    TODO_LIST_PANEL.setViewportView(todoListContainerPanel);
+
+    TODO_LIST_PANEL.revalidate();
+    TODO_LIST_PANEL.repaint();
   }
 }
