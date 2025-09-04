@@ -1,7 +1,7 @@
 package todoApp;
 
 import java.awt.Color;
-import java.util.Map;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -64,51 +64,28 @@ public class View {
     TODO_LIST_PANEL = new JPanel();
   }
 
-  /**.
-   * TEXT_INPUTのgetterメソッド
-   *
-   * @return TEXT_INPUTへの参照
-   */
+  /**. getterメソッド */
   @SuppressWarnings("EI_EXPOSE_REP")
   public JTextField getTextInput() {
     return this.TEXT_INPUT;
   }
 
-  /**.
-   * TODO_CREATE_PANELのgetterメソッド
-   *
-   * @return TODO_CREATE_PANELへの参照
-   */
   @SuppressWarnings("EI_EXPOSE_REP")
   public JPanel getTodoCreatePanel() {
     return this.TODO_CREATE_PANEL;
   }
 
-  /**.
-   * SAVE＿BUTTONのgetterメソッド
-   *
-   * @return SAVE_BUTTONへの参照
-   */
   @SuppressWarnings("EI_EXPOSE_REP")
   public JButton getSaveButton() {
     return this.SAVE_BUTTON;
   }
 
-  /**.
-   * TEXT_CLEAR_BUTTONのgetterメソッド
-   *
-   * @return TEXT_CLEAR_BUTTONへの参照
-   */
   @SuppressWarnings("EI_EXPOSE_REP")
   public JButton getTextClearButton() {
     return this.TEXT_CLEAR_BUTTON;
   }
 
-  /**.
-   * TODO_LIST_PANELのgetterメソッド
-   *
-   * @return TODO_LIST_PANELへの参照
-   */@SuppressWarnings("EI_EXPOSE_REP")
+  @SuppressWarnings("EI_EXPOSE_REP")
   public JPanel getTodoListPanel() {
     return this.TODO_LIST_PANEL;
   }
@@ -123,30 +100,32 @@ public class View {
   }
 
 
-  public void updateTodoListPanel(Map<String, String> pendingFileNames, Map<String, String> progressFileNames, Map<String, String> CompletedFileNames,  Control control); {
+  public void updateTodoListPanel(List<TodoItem> pendingTodoList,
+                                  List<TodoItem> in_progressTodoList,
+                                  List<TodoItem> completedTodoList, Controller controller) {
 
     JScrollPane todoListContainerPanel = new JScrollPane();
     todoListContainerPanel.setLayout(new BoxLayout(todoListContainerPanel, BoxLayout.X_AXIS));
 
-    //未実施のtodoリストを表示するJpanelを作成
+    //未実施のtodoリストを表示するJPanelを作成
     JPanel pendingListPanel = new JPanel();
     pendingListPanel.setLayout(new BoxLayout(pendingListPanel, BoxLayout.Y_AXIS));
 
-    for(Map.Entry<String, String> entry : pendingFileNames.entrySet()){
+    for(TodoItem todo: pendingTodoList){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
 
-      JLabel todoNameLabel = new JLabel(entry.getValue());
+      JLabel todoNameLabel = new JLabel(todo.getText());
 
       JButton progressButton = new JButton("進行中へ");
-      progressButton.setActionCommand(entry.getKey());
-      control.setupProgressListener(progressButton);
+      progressButton.setActionCommand(todo.getFileName());
+      controller.setupProgressListener(progressButton);
 
       JButton clearTodoButton = new JButton("todo削除");
-      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setActionCommand(todo.getFileName());
       clearTodoButton.setForeground(Color.RED);
-      control.setupClearTodoListener(clearTodoButton);
+      controller.setupClearTodoListener(clearTodoButton);
 
       todoPanel.add(todoNameLabel);
       todoPanel.add(progressButton);
@@ -157,25 +136,25 @@ public class View {
     }
     todoListContainerPanel.add(pendingListPanel);
 
-    //進行中のtodoリストを表示するJpanelを作成
+    //進行中のtodoリストを表示するJPanelを作成
     JPanel progressListPanel = new JPanel();
     progressListPanel.setLayout(new BoxLayout(progressListPanel, BoxLayout.Y_AXIS));
 
-    for(Map.Entry<String, String> entry : progressFileNames.entrySet()){
+    for(TodoItem todo:in_progressTodoList ){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
 
-      JLabel todoNameLabel = new JLabel(entry.getValue());
+      JLabel todoNameLabel = new JLabel(todo.getText());
 
       JButton completedButton = new JButton("完了へ");
-      completedButton.setActionCommand(entry.getKey());
-      control.setupProgressListener(completedButton);
+      completedButton.setActionCommand(todo.getFileName());
+      controller.setupProgressListener(completedButton);
 
       JButton clearTodoButton = new JButton("todo削除");
-      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setActionCommand(todo.getFileName());
       clearTodoButton.setForeground(Color.RED);
-      control.setupClearTodoListener(clearTodoButton);
+      controller.setupClearTodoListener(clearTodoButton);
 
       todoPanel.add(todoNameLabel);
       todoPanel.add(completedButton);
@@ -186,21 +165,21 @@ public class View {
     }
     todoListContainerPanel.add(progressListPanel);
 
-    //完了のtodoリストを表示するJpanelを作成
+    //完了のtodoリストを表示するJPanelを作成
     JPanel CompletedListPanel = new JPanel();
     CompletedListPanel.setLayout(new BoxLayout(CompletedListPanel, BoxLayout.Y_AXIS));
 
-    for(Map.Entry<String, String> entry : CompletedFileNames.entrySet()){
+    for(TodoItem todo: completedTodoList){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
 
-      JLabel todoNameLabel = new JLabel(entry.getValue());
+      JLabel todoNameLabel = new JLabel(todo.getText());
 
       JButton clearTodoButton = new JButton("todo削除");
-      clearTodoButton.setActionCommand(entry.getKey());
+      clearTodoButton.setActionCommand(todo.getFileName());
       clearTodoButton.setForeground(Color.RED);
-      control.setupClearTodoListener(clearTodoButton);
+      controller.setupClearTodoListener(clearTodoButton);
 
       todoPanel.add(todoNameLabel);
       todoPanel.add(clearTodoButton);

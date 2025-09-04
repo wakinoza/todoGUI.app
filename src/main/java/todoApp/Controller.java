@@ -1,14 +1,14 @@
 package todoApp;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**.
  * ModelクラスとViewクラスのかけ渡しを担うクラス
  */
-public class Control {
+public class Controller {
   /**. Modelクラスのインスタンスへの参照*/
   private final Model MODEL;
 
@@ -22,7 +22,7 @@ public class Control {
    * @param view Viewクラスのインスタンスへの参照
    */
   @SuppressWarnings("EI_EXPOSE_REP2")
-  public Control(Model model, View view) {
+  public Controller(Model model, View view) {
     this.MODEL = model;
     this.VIEW = view;
   }
@@ -123,9 +123,9 @@ public class Control {
    * 履歴表示の再構成を指示するメソッド
    */
   public void makeTodoListPanel() {
-    Map<String, String> pendingFileNames = MODEL.getPendingTodoList();
-    Map<String, String> progressFileNames = MODEL.getprogressTodoList();
-    Map<String, String> CompletedFileNames = MODEL.getCompletedTodoList();
-    VIEW.updateTodoListPanel(pendingFileNames, progressFileNames, CompletedFileNames, this);
+    List<TodoItem> pendingTodoList = MODEL.getPendingTodoList();
+    List<TodoItem> in_progressTodoList = MODEL.getIn_progressTodoList();
+    List<TodoItem> completedTodoList = MODEL.getCompletedTodoList();
+    VIEW.updateTodoListPanel(pendingTodoList, in_progressTodoList, completedTodoList, this);
   }
 }

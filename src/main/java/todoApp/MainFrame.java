@@ -13,20 +13,20 @@ public class MainFrame extends JFrame {
    * コンストラクタ
    *
    * @param view    Viewクラスのインスタンスへの参照
-   * @param control Controlクラスのインスタンスへの参照
+   * @param controller Controllerクラスのインスタンスへの参照
    */
-  public MainFrame(View view, Control control) {
+  public MainFrame(View view, Controller controller) {
     setTitle("シンプルなtodoアプリ");
     setSize(1200, 800);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    control.makeTodoListPanel();
+    controller.makeTodoListPanel();
 
     setLayout(new BorderLayout());
 
     add(view.getTodoListPanel(), BorderLayout.CENTER);
     add(view.getTodoCreatePanel(), BorderLayout.EAST);
 
-    control.setupTodoCreateListeners();
+    controller.setupTodoCreateListeners();
   }
 }
