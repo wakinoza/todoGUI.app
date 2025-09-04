@@ -1,7 +1,6 @@
 package todoApp;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -124,7 +123,7 @@ public class View {
   }
 
 
-  public void updateTodoListPanel(Map<String, String> pendingFileNames, Map<String, String> progressFileNames, Map<String, String> CompletedFileNames, Control control); {
+  public void updateTodoListPanel(Map<String, String> pendingFileNames, Map<String, String> progressFileNames, Map<String, String> CompletedFileNames,  Control control); {
 
     JScrollPane todoListContainerPanel = new JScrollPane();
     todoListContainerPanel.setLayout(new BoxLayout(todoListContainerPanel, BoxLayout.X_AXIS));
