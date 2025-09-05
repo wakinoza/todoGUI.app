@@ -32,7 +32,7 @@ public class Main {
       DAO dao = new DAO();
       View view = new View();
       Controller controller = new Controller(model, view, dao);
-      MainFrame frame = new MainFrame(view, controller);
+      MainFrame frame = new MainFrame(view, controller, dao, model);
       frame.setVisible(true);
     });
   }
