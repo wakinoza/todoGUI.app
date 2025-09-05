@@ -11,6 +11,15 @@ import java.util.List;
 public class Model {
   private List <TodoItem> todoItemList = new ArrayList<>();
 
+
+  public List<TodoItem> getTodoItemList() {
+    return this.todoItemList;
+  }
+
+  public void setTodoItemList(List<TodoItem> newList) {
+    this.todoItemList = newList;
+  }
+
   /**. テキストエリアの文字列データから、TodoItemインスタンスを生成するメソッド
    *
    * @param content テキストエリアの文字列データ
