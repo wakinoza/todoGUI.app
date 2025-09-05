@@ -7,7 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**.
  * UIを司るクラス
@@ -37,14 +39,8 @@ public class View {
 
     JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください");
 
-    JLabel textLabel = new JLabel("やりたいこと");
     TEXT_INPUT= new JTextField();
-
-    JPanel todoInputPanel = new JPanel();
-    todoInputPanel.setLayout(new BoxLayout(todoInputPanel, BoxLayout.X_AXIS));
-
-    todoInputPanel.add(textLabel);
-    todoInputPanel.add(TEXT_INPUT);
+    TEXT_INPUT.setSize(50, 20);
 
     SAVE_BUTTON = new JButton("todoを保存");
     SAVE_BUTTON.setBackground(Color.GREEN);
@@ -58,7 +54,7 @@ public class View {
     buttonPanel.add(TEXT_CLEAR_BUTTON);
 
     TODO_CREATE_PANEL.add(descriptionLabel);
-    TODO_CREATE_PANEL.add(todoInputPanel);
+    TODO_CREATE_PANEL.add(TEXT_INPUT);
     TODO_CREATE_PANEL.add(buttonPanel);
 
     TODO_LIST_PANEL = new JPanel();
@@ -104,12 +100,19 @@ public class View {
                                   List<TodoItem> in_progressTodoList,
                                   List<TodoItem> completedTodoList, Controller controller) {
 
-    JScrollPane todoListContainerPanel = new JScrollPane();
+    TODO_LIST_PANEL.removeAll();
+
+    JPanel todoListContainerPanel = new JPanel();
     todoListContainerPanel.setLayout(new BoxLayout(todoListContainerPanel, BoxLayout.X_AXIS));
 
     //未実施のtodoリストを表示するJPanelを作成
     JPanel pendingListPanel = new JPanel();
     pendingListPanel.setLayout(new BoxLayout(pendingListPanel, BoxLayout.Y_AXIS));
+
+    if (!pendingTodoList.isEmpty()) {
+      JLabel PendingDescriptionLabel = new JLabel("未実施");
+      pendingListPanel.add(PendingDescriptionLabel);
+    }
 
     for(TodoItem todo: pendingTodoList){
 
@@ -136,9 +139,20 @@ public class View {
     }
     todoListContainerPanel.add(pendingListPanel);
 
+    if (!pendingTodoList.isEmpty() && !in_progressTodoList.isEmpty()) {
+      JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
+      todoListContainerPanel.add(separator1);
+    }
+
+
     //進行中のtodoリストを表示するJPanelを作成
     JPanel progressListPanel = new JPanel();
     progressListPanel.setLayout(new BoxLayout(progressListPanel, BoxLayout.Y_AXIS));
+
+    if (!in_progressTodoList.isEmpty()) {
+      JLabel progressDescriptionLabel = new JLabel("実行中");
+      progressListPanel.add(progressDescriptionLabel);
+    }
 
     for(TodoItem todo:in_progressTodoList ){
 
@@ -165,9 +179,19 @@ public class View {
     }
     todoListContainerPanel.add(progressListPanel);
 
+    if (!in_progressTodoList.isEmpty() && !completedTodoList.isEmpty()) {
+      JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
+      todoListContainerPanel.add(separator2);
+    }
+
     //完了のtodoリストを表示するJPanelを作成
     JPanel CompletedListPanel = new JPanel();
     CompletedListPanel.setLayout(new BoxLayout(CompletedListPanel, BoxLayout.Y_AXIS));
+
+    if (!completedTodoList.isEmpty()) {
+      JLabel CompletedDescriptionLabel = new JLabel("完了済み");
+      CompletedListPanel.add(CompletedDescriptionLabel);
+    }
 
     for(TodoItem todo: completedTodoList){
 
@@ -189,10 +213,7 @@ public class View {
     }
     todoListContainerPanel.add(CompletedListPanel);
 
-    todoListContainerPanel.setViewportView(pendingListPanel);
-    todoListContainerPanel.setViewportView(progressListPanel);
-    todoListContainerPanel.setViewportView(CompletedListPanel);
-
+    TODO_LIST_PANEL.add(todoListContainerPanel);
     TODO_LIST_PANEL.revalidate();
     TODO_LIST_PANEL.repaint();
   }

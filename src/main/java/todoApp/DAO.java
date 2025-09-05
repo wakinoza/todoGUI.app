@@ -18,8 +18,7 @@ public class DAO {
     List<TodoItem> newTodoItemList = new ArrayList<>();
 
     try {
-      // ファイルが存在するか確認する
-      File file = new File(Main.getSaveDir());
+      File file = new File(Main.getSaveDir(),"todos.json");
       if (file.exists() && file.length() > 0) {
         newTodoItemList = mapper.readValue(file, new TypeReference<List<TodoItem>>() {});
         System.out.println("JSONファイルからデータを読み込みました。");
@@ -35,7 +34,7 @@ public class DAO {
     ObjectMapper mapper = new ObjectMapper();
 
     try {
-      mapper.writeValue(new File(Main.getSaveDir() + "todos.json"), todoItemList);
+      mapper.writeValue(new File(Main.getSaveDir(), "todos.json"), todoItemList);
     } catch (IOException e) {
       e.printStackTrace();
     }
