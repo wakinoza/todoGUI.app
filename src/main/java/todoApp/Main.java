@@ -31,7 +31,7 @@ public class Main {
       Model model = new Model();
       DAO dao = new DAO();
       View view = new View();
-      Controller controller = new Controller(model, view, dao);
+      Controller controller = new Controller(model, view);
       MainFrame frame = new MainFrame(view, controller, dao, model);
       frame.setVisible(true);
     });
