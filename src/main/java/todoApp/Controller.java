@@ -14,6 +14,9 @@ public class Controller {
   /**. Viewクラスのインスタンスへの参照*/
   private final View VIEW;
 
+  /**. DAOクラスのインスタンスへの参照*/
+  private final DAO DAO;
+
   /**.
    * コンストラクタ
    *
@@ -21,9 +24,10 @@ public class Controller {
    * @param view Viewクラスのインスタンスへの参照
    */
   @SuppressWarnings("EI_EXPOSE_REP2")
-  public Controller(Model model, View view) {
+  public Controller(Model model, View view, DAO dao) {
     this.MODEL = model;
     this.VIEW = view;
+    this.DAO = dao;
   }
 
   /**.

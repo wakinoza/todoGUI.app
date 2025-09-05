@@ -11,11 +11,12 @@ import java.util.List;
 public class Model {
   private List <TodoItem> todoItemList = new ArrayList<>();
 
-
+  /**. getterメソッド */
   public List<TodoItem> getTodoItemList() {
     return this.todoItemList;
   }
 
+  /**. setterメソッド */
   public void setTodoItemList(List<TodoItem> newList) {
     this.todoItemList = newList;
   }
