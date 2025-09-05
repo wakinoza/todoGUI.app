@@ -1,14 +1,34 @@
 package todoApp;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAO {
 
-  public DAO() {
+  public DAO(Model model) {
+    model.setTodoItemList(readJSONFile());
+  }
 
+  public List<TodoItem> readJSONFile() {
+    ObjectMapper mapper = new ObjectMapper();
+    List<TodoItem> newTodoItemList = new ArrayList<>();
+
+    try {
+      // ファイルが存在するか確認する
+      File file = new File(Main.getSaveDir());
+      if (file.exists() && file.length() > 0) {
+        newTodoItemList = mapper.readValue(file, new TypeReference<List<TodoItem>>() {});
+        System.out.println("JSONファイルからデータを読み込みました。");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.err.println("JSONファイルの読み込み中にエラーが発生しました。");
+    }
+    return newTodoItemList;
   }
 
   public void writeJSONFile(List<TodoItem> todoItemList) {

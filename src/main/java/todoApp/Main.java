@@ -29,7 +29,7 @@ public class Main {
 
     SwingUtilities.invokeLater(() -> {
       Model model = new Model();
-      DAO dao = new DAO();
+      DAO dao = new DAO(model);
       View view = new View();
       Controller controller = new Controller(model, view);
       MainFrame frame = new MainFrame(view, controller, dao, model);

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**.
  * GUI表示を司るクラス
@@ -39,9 +38,8 @@ public class MainFrame extends JFrame {
     this.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
-        JOptionPane.showMessageDialog(null, "todoデータを保存しています。", "information",
-            JOptionPane.INFORMATION_MESSAGE);
         dao.writeJSONFile(model.getTodoItemList());
+        System.out.println("データを保存しました");
       }
     });
   }
