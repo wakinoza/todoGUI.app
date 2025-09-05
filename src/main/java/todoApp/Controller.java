@@ -1,6 +1,5 @@
 package todoApp;
 
-import java.io.IOException;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -41,16 +40,11 @@ public class Controller {
         return;
       }
 
-      try {
-        MODEL.saveTodo(content);
-        JOptionPane.showMessageDialog(null, "todoが保存されました。", "information",
-            JOptionPane.INFORMATION_MESSAGE);
-        VIEW.setTextInputContent("");
-        makeTodoListPanel();
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "todoの保存に失敗しました。", "Error",
-            JOptionPane.ERROR_MESSAGE);
-      }
+      MODEL.saveTodo(content);
+      JOptionPane.showMessageDialog(null, "todoが保存されました。", "information",
+          JOptionPane.INFORMATION_MESSAGE);
+      VIEW.setTextInputContent("");
+      makeTodoListPanel();
     });
 
     //テキスト削除ボタン
@@ -67,14 +61,8 @@ public class Controller {
 
     progressButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
-
-      try {
-// todo:       タグを"in_progress"に変更するロジック
-        makeTodoListPanel();
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "処理に失敗しました。", "Error",
-            JOptionPane.ERROR_MESSAGE);
-      }
+      MODEL.changeProgress(fileName, Progress.IN_PROGRESS);
+      makeTodoListPanel();
     });
   }
 
@@ -87,19 +75,13 @@ public class Controller {
 
     completedButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
-
-      try {
-//   todo:  タグを"completed"に変更するロジック
-        makeTodoListPanel();
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "処理に失敗しました。", "Error",
-            JOptionPane.ERROR_MESSAGE);
-      }
+      MODEL.changeProgress(fileName, Progress.COMPLETED);
+      makeTodoListPanel();
     });
   }
 
   /**.
-   * 完了したtodoを削除するメソッド
+   * todoを削除するメソッド
    *
    * @param clearTodoButton clearTodoButtonのインスタンスへの参照
    */
@@ -107,15 +89,10 @@ public class Controller {
 
     clearTodoButton.addActionListener(e -> {
       String fileName = e.getActionCommand();
-      try {
-        MODEL.clearTodoFile(fileName);
-        makeTodoListPanel();
-        JOptionPane.showMessageDialog(null, "todoを削除しました。", "Information",
-            JOptionPane.INFORMATION_MESSAGE);
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(null, "todoの削除に失敗しました。", "Error",
-            JOptionPane.ERROR_MESSAGE);
-      }
+      MODEL.clearTodoItem(fileName);
+      makeTodoListPanel();
+      JOptionPane.showMessageDialog(null, "todoを削除しました。", "Information",
+          JOptionPane.INFORMATION_MESSAGE);
     });
   }
 
@@ -123,9 +100,9 @@ public class Controller {
    * 履歴表示の再構成を指示するメソッド
    */
   public void makeTodoListPanel() {
-    List<TodoItem> pendingTodoList = MODEL.getPendingTodoList();
-    List<TodoItem> in_progressTodoList = MODEL.getIn_progressTodoList();
-    List<TodoItem> completedTodoList = MODEL.getCompletedTodoList();
+    List<TodoItem> pendingTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.PENDING);
+    List<TodoItem> in_progressTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.IN_PROGRESS);
+    List<TodoItem> completedTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.COMPLETED);
     VIEW.updateTodoListPanel(pendingTodoList, in_progressTodoList, completedTodoList, this);
   }
 }

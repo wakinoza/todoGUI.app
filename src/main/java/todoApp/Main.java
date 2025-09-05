@@ -8,9 +8,14 @@ import javax.swing.SwingUtilities;
  * イベントディスパッチスレッドでUIを生成すし、必要なクラスのインスタンスを生成する
  */
 public class Main {
-  /**. テキストファイルを保存するディレクトリのパス*/
+  /**. JSONファイルを保存するディレクトリのパス*/
   private static final String SAVE_DIR = "todos/";
 
+  /**.
+   * メインメソッド
+   *
+   * @param args コマンドライン引数
+   */
   public static void main(String[] args) {
     File dir = new File(SAVE_DIR);
     if (!dir.exists()) {
@@ -24,14 +29,15 @@ public class Main {
 
     SwingUtilities.invokeLater(() -> {
       Model model = new Model();
+      DAO dao = new DAO();
       View view = new View();
       Controller controller = new Controller(model, view);
       MainFrame frame = new MainFrame(view, controller);
       frame.setVisible(true);
     });
-
   }
 
+  /**. getterメソッド　*/
   public static String getSaveDir() {
     return SAVE_DIR;
   }

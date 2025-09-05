@@ -149,7 +149,7 @@ public class View {
 
       JButton completedButton = new JButton("完了へ");
       completedButton.setActionCommand(todo.getFileName());
-      controller.setupProgressListener(completedButton);
+      controller.setupCompletedListener(completedButton);
 
       JButton clearTodoButton = new JButton("todo削除");
       clearTodoButton.setActionCommand(todo.getFileName());
@@ -189,7 +189,9 @@ public class View {
     }
     todoListContainerPanel.add(CompletedListPanel);
 
-    TODO_LIST_PANEL.setViewportView(todoListContainerPanel);
+    todoListContainerPanel.setViewportView(pendingListPanel);
+    todoListContainerPanel.setViewportView(progressListPanel);
+    todoListContainerPanel.setViewportView(CompletedListPanel);
 
     TODO_LIST_PANEL.revalidate();
     TODO_LIST_PANEL.repaint();
