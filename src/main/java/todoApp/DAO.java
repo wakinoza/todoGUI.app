@@ -19,7 +19,7 @@ public class DAO {
 
     try {
       File file = new File(Main.getSaveDir(),"todos.json");
-      if (file.exists() && file.length() > 0) {
+      if (file.exists()) {
         newTodoItemList = mapper.readValue(file, new TypeReference<List<TodoItem>>() {});
         System.out.println("JSONファイルからデータを読み込みました。");
       }
