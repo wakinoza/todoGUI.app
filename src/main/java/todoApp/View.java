@@ -1,5 +1,7 @@
 package todoApp;
 
+import static javax.swing.text.StyleConstants.setForeground;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -115,8 +117,9 @@ public class View {
     pendingListPanel.setPreferredSize(fixedWidth);
     pendingListPanel.setMaximumSize(fixedWidth);
 
-    JLabel PendingDescriptionLabel = new JLabel("【未実施】");
-    pendingListPanel.add(PendingDescriptionLabel);
+    JLabel pendingDescriptionLabel = new JLabel("【未実施】");
+    pendingDescriptionLabel.setForeground(Color.ORANGE);
+    pendingListPanel.add(pendingDescriptionLabel);
 
     for(TodoItem todo: pendingTodoList){
 
@@ -167,6 +170,7 @@ public class View {
     progressListPanel.setMaximumSize(fixedWidth);
 
     JLabel progressDescriptionLabel = new JLabel("【実行中】");
+    progressDescriptionLabel.setForeground(Color.BLUE);
     progressListPanel.add(progressDescriptionLabel);
 
     for(TodoItem todo:in_progressTodoList ){
@@ -219,6 +223,7 @@ public class View {
 
 
     JLabel CompletedDescriptionLabel = new JLabel("【完了済み】");
+    CompletedDescriptionLabel.setForeground(Color.GREEN);
     CompletedListPanel.add(CompletedDescriptionLabel);
 
     for(TodoItem todo: completedTodoList){
