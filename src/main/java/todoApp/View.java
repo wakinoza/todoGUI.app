@@ -1,6 +1,7 @@
 package todoApp;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,10 +40,9 @@ public class View {
     JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください");
 
     TEXT_INPUT= new JTextField();
-    TEXT_INPUT.setSize(50, 20);
+    TEXT_INPUT.setSize(50, 50);
 
     SAVE_BUTTON = new JButton("todoを保存");
-    SAVE_BUTTON.setBackground(Color.GREEN);
     TEXT_CLEAR_BUTTON = new JButton("削除");
     TEXT_CLEAR_BUTTON.setForeground(Color.RED);
 
@@ -104,19 +104,23 @@ public class View {
     JPanel todoListContainerPanel = new JPanel();
     todoListContainerPanel.setLayout(new BoxLayout(todoListContainerPanel, BoxLayout.X_AXIS));
 
+    Dimension fixedWidth = new Dimension(350, Integer.MAX_VALUE);
+
     //未実施のtodoリストを表示するJPanelを作成
     JPanel pendingListPanel = new JPanel();
     pendingListPanel.setLayout(new BoxLayout(pendingListPanel, BoxLayout.Y_AXIS));
+    pendingListPanel.setPreferredSize(fixedWidth);
+    pendingListPanel.setMaximumSize(fixedWidth);
 
-    if (!pendingTodoList.isEmpty()) {
-      JLabel PendingDescriptionLabel = new JLabel("未実施");
-      pendingListPanel.add(PendingDescriptionLabel);
-    }
+    JLabel PendingDescriptionLabel = new JLabel("【未実施】");
+    pendingListPanel.add(PendingDescriptionLabel);
+
 
     for(TodoItem todo: pendingTodoList){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
+      todoPanel.setSize(240,50);
 
       JLabel todoNameLabel = new JLabel(todo.getText());
 
@@ -138,25 +142,23 @@ public class View {
     }
     todoListContainerPanel.add(pendingListPanel);
 
-    if (!pendingTodoList.isEmpty() && !in_progressTodoList.isEmpty()) {
-      JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
-      todoListContainerPanel.add(separator1);
-    }
-
+    JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
+    todoListContainerPanel.add(separator1);
 
     //進行中のtodoリストを表示するJPanelを作成
     JPanel progressListPanel = new JPanel();
     progressListPanel.setLayout(new BoxLayout(progressListPanel, BoxLayout.Y_AXIS));
+    progressListPanel.setPreferredSize(fixedWidth);
+    progressListPanel.setMaximumSize(fixedWidth);
 
-    if (!in_progressTodoList.isEmpty()) {
-      JLabel progressDescriptionLabel = new JLabel("実行中");
-      progressListPanel.add(progressDescriptionLabel);
-    }
+    JLabel progressDescriptionLabel = new JLabel("【実行中】");
+    progressListPanel.add(progressDescriptionLabel);
 
     for(TodoItem todo:in_progressTodoList ){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
+      todoPanel.setSize(240,50);
 
       JLabel todoNameLabel = new JLabel(todo.getText());
 
@@ -178,24 +180,24 @@ public class View {
     }
     todoListContainerPanel.add(progressListPanel);
 
-    if (!in_progressTodoList.isEmpty() && !completedTodoList.isEmpty()) {
-      JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
-      todoListContainerPanel.add(separator2);
-    }
+    JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
+    todoListContainerPanel.add(separator2);
 
     //完了のtodoリストを表示するJPanelを作成
     JPanel CompletedListPanel = new JPanel();
     CompletedListPanel.setLayout(new BoxLayout(CompletedListPanel, BoxLayout.Y_AXIS));
+    CompletedListPanel.setPreferredSize(fixedWidth);
+    CompletedListPanel.setMaximumSize(fixedWidth);
 
-    if (!completedTodoList.isEmpty()) {
-      JLabel CompletedDescriptionLabel = new JLabel("完了済み");
-      CompletedListPanel.add(CompletedDescriptionLabel);
-    }
+
+    JLabel CompletedDescriptionLabel = new JLabel("【完了済み】");
+    CompletedListPanel.add(CompletedDescriptionLabel);
 
     for(TodoItem todo: completedTodoList){
 
       JPanel todoPanel = new JPanel();
       todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
+      todoPanel.setSize(240,50);
 
       JLabel todoNameLabel = new JLabel(todo.getText());
 
