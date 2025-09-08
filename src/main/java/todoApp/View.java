@@ -1,15 +1,20 @@
 package todoApp;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 /**.
  * UIを司るクラス
@@ -40,7 +45,6 @@ public class View {
     JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください");
 
     TEXT_INPUT= new JTextField();
-    TEXT_INPUT.setSize(50, 50);
 
     SAVE_BUTTON = new JButton("todoを保存");
     TEXT_CLEAR_BUTTON = new JButton("削除");
@@ -94,7 +98,6 @@ public class View {
     TEXT_INPUT.setText(content);
   }
 
-
   public void updateTodoListPanel(List<TodoItem> pendingTodoList,
                                   List<TodoItem> in_progressTodoList,
                                   List<TodoItem> completedTodoList, Controller controller) {
@@ -108,21 +111,31 @@ public class View {
 
     //未実施のtodoリストを表示するJPanelを作成
     JPanel pendingListPanel = new JPanel();
-    pendingListPanel.setLayout(new BoxLayout(pendingListPanel, BoxLayout.Y_AXIS));
+    pendingListPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     pendingListPanel.setPreferredSize(fixedWidth);
     pendingListPanel.setMaximumSize(fixedWidth);
 
     JLabel PendingDescriptionLabel = new JLabel("【未実施】");
     pendingListPanel.add(PendingDescriptionLabel);
 
-
     for(TodoItem todo: pendingTodoList){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
-      todoPanel.setSize(240,50);
+      todoPanel.setPreferredSize(new Dimension(300, 50));
+      todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
+      todoPanel.setLayout(new BorderLayout());
 
-      JLabel todoNameLabel = new JLabel(todo.getText());
+      Border OrangeBorder = BorderFactory.createLineBorder(Color.ORANGE, 1);
+      todoPanel.setBorder(OrangeBorder);
+
+      JTextArea todoTextArea = new JTextArea(todo.getText());
+      todoTextArea.setLineWrap(true);
+      todoTextArea.setWrapStyleWord(true);
+      todoTextArea.setEditable(false);
+      todoTextArea.setBackground(todoPanel.getBackground());
+
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
       JButton progressButton = new JButton("進行中へ");
       progressButton.setActionCommand(todo.getFileName());
@@ -133,13 +146,15 @@ public class View {
       clearTodoButton.setForeground(Color.RED);
       controller.setupClearTodoListener(clearTodoButton);
 
-      todoPanel.add(todoNameLabel);
-      todoPanel.add(progressButton);
-      todoPanel.add(clearTodoButton);
+      buttonPanel.add(progressButton);
+      buttonPanel.add(clearTodoButton);
+
+      todoPanel.add(todoTextArea, BorderLayout.CENTER);
+      todoPanel.add(buttonPanel, BorderLayout.EAST);
 
       pendingListPanel.add(todoPanel);
-
     }
+
     todoListContainerPanel.add(pendingListPanel);
 
     JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
@@ -147,7 +162,7 @@ public class View {
 
     //進行中のtodoリストを表示するJPanelを作成
     JPanel progressListPanel = new JPanel();
-    progressListPanel.setLayout(new BoxLayout(progressListPanel, BoxLayout.Y_AXIS));
+    progressListPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     progressListPanel.setPreferredSize(fixedWidth);
     progressListPanel.setMaximumSize(fixedWidth);
 
@@ -157,10 +172,21 @@ public class View {
     for(TodoItem todo:in_progressTodoList ){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
-      todoPanel.setSize(240,50);
+      todoPanel.setPreferredSize(new Dimension(300, 50));
+      todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
+      todoPanel.setLayout(new BorderLayout());
 
-      JLabel todoNameLabel = new JLabel(todo.getText());
+      Border blueBorder = BorderFactory.createLineBorder(Color.BLUE, 1);
+      todoPanel.setBorder(blueBorder);
+
+      JTextArea todoTextArea = new JTextArea(todo.getText());
+      todoTextArea.setLineWrap(true);
+      todoTextArea.setWrapStyleWord(true);
+      todoTextArea.setEditable(false);
+      todoTextArea.setBackground(todoPanel.getBackground());
+
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
       JButton completedButton = new JButton("完了へ");
       completedButton.setActionCommand(todo.getFileName());
@@ -171,9 +197,11 @@ public class View {
       clearTodoButton.setForeground(Color.RED);
       controller.setupClearTodoListener(clearTodoButton);
 
-      todoPanel.add(todoNameLabel);
-      todoPanel.add(completedButton);
-      todoPanel.add(clearTodoButton);
+      buttonPanel.add(completedButton);
+      buttonPanel.add(clearTodoButton);
+
+      todoPanel.add(todoTextArea, BorderLayout.CENTER);
+      todoPanel.add(buttonPanel, BorderLayout.EAST);
 
       progressListPanel.add(todoPanel);
 
@@ -185,7 +213,7 @@ public class View {
 
     //完了のtodoリストを表示するJPanelを作成
     JPanel CompletedListPanel = new JPanel();
-    CompletedListPanel.setLayout(new BoxLayout(CompletedListPanel, BoxLayout.Y_AXIS));
+    CompletedListPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     CompletedListPanel.setPreferredSize(fixedWidth);
     CompletedListPanel.setMaximumSize(fixedWidth);
 
@@ -196,18 +224,29 @@ public class View {
     for(TodoItem todo: completedTodoList){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setLayout(new BoxLayout(todoPanel, BoxLayout.X_AXIS));
-      todoPanel.setSize(240,50);
+      todoPanel.setPreferredSize(new Dimension(300, 50));
+      todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
+      todoPanel.setLayout(new BorderLayout());
 
-      JLabel todoNameLabel = new JLabel(todo.getText());
+      Border greenBorder = BorderFactory.createLineBorder(Color.GREEN, 1);
+      todoPanel.setBorder(greenBorder);
+
+      JTextArea todoTextArea = new JTextArea(todo.getText());
+      todoTextArea.setLineWrap(true);
+      todoTextArea.setWrapStyleWord(true);
+      todoTextArea.setEditable(false);
+      todoTextArea.setBackground(todoPanel.getBackground());
+
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
       JButton clearTodoButton = new JButton("todo削除");
       clearTodoButton.setActionCommand(todo.getFileName());
       clearTodoButton.setForeground(Color.RED);
       controller.setupClearTodoListener(clearTodoButton);
 
-      todoPanel.add(todoNameLabel);
-      todoPanel.add(clearTodoButton);
+      todoPanel.add(todoTextArea, BorderLayout.CENTER);
+      todoPanel.add(clearTodoButton, BorderLayout.EAST);
 
       CompletedListPanel.add(todoPanel);
 
