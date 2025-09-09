@@ -44,21 +44,27 @@ public class View {
     TODO_CREATE_PANEL = new JPanel();
     TODO_CREATE_PANEL.setLayout(new BoxLayout(TODO_CREATE_PANEL, BoxLayout.Y_AXIS));
 
+    JPanel descriptionPanel = new JPanel();
+    descriptionPanel.setLayout(new BorderLayout());
     JLabel descriptionLabel = new JLabel("「やりたいこと」を以下に記入して、「todo保存」ボタンを押してください");
+    descriptionPanel.add(descriptionLabel,BorderLayout.WEST);
 
     TEXT_INPUT= new JTextField();
 
+    JPanel buttonPanel = new JPanel();
+    JPanel buttonContainerPanel = new JPanel();
     SAVE_BUTTON = new JButton("todoを保存");
     TEXT_CLEAR_BUTTON = new JButton("削除");
     TEXT_CLEAR_BUTTON.setForeground(Color.RED);
 
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+    buttonContainerPanel.setLayout(new BoxLayout(buttonContainerPanel, BoxLayout.X_AXIS));
+    buttonContainerPanel.add(SAVE_BUTTON);
+    buttonContainerPanel.add(TEXT_CLEAR_BUTTON);
 
-    buttonPanel.add(SAVE_BUTTON);
-    buttonPanel.add(TEXT_CLEAR_BUTTON);
+    buttonPanel.setLayout(new BorderLayout());
+    buttonPanel.add(buttonContainerPanel,BorderLayout.EAST);
 
-    TODO_CREATE_PANEL.add(descriptionLabel);
+    TODO_CREATE_PANEL.add(descriptionPanel);
     TODO_CREATE_PANEL.add(TEXT_INPUT);
     TODO_CREATE_PANEL.add(buttonPanel);
 
