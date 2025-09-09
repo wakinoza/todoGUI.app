@@ -106,6 +106,14 @@ public class View {
     TEXT_INPUT.setText(content);
   }
 
+  /**.
+   * todo一覧を表示するメソッド
+   *
+   * @param pendingTodoList 進捗が「pending」のtodoItemインスタンスのList
+   * @param in_progressTodoList 進捗が「in_progress」のtodoItemインスタンスのList
+   * @param completedTodoList 進捗が「completed」のtodoItemインスタンスのList
+   * @param controller Controllerインスタンスへの参照
+   */
   public void updateTodoListPanel(List<TodoItem> pendingTodoList,
                                   List<TodoItem> in_progressTodoList,
                                   List<TodoItem> completedTodoList, Controller controller) {
@@ -119,23 +127,31 @@ public class View {
 
     //未実施のtodoリストを表示するJPanelを作成
     JPanel pendingListPanel = new JPanel();
-    pendingListPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-    pendingListPanel.setPreferredSize(fixedWidth);
-    pendingListPanel.setMaximumSize(fixedWidth);
+    pendingListPanel.setLayout(new BorderLayout());
 
+    JPanel pendingDescriptionPanel = new JPanel();
+    pendingDescriptionPanel.setLayout(new BorderLayout());
     JLabel pendingDescriptionLabel = new JLabel("【未実施】");
     pendingDescriptionLabel.setForeground(Color.MAGENTA);
-    pendingListPanel.add(pendingDescriptionLabel);
+    pendingDescriptionPanel.add(pendingDescriptionLabel,BorderLayout.CENTER);
+
+    pendingListPanel.add(pendingDescriptionPanel,BorderLayout.NORTH);
+
+    JPanel pendingListContainerPanel = new JPanel();
+    pendingListContainerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+    pendingListContainerPanel.setPreferredSize(fixedWidth);
+    pendingListContainerPanel.setMaximumSize(fixedWidth);
 
     for(TodoItem todo: pendingTodoList){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setPreferredSize(new Dimension(300, 50));
       todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
       todoPanel.setLayout(new BorderLayout());
 
-      Border OrangeBorder = BorderFactory.createLineBorder(Color.MAGENTA, 1);
-      todoPanel.setBorder(OrangeBorder);
+      Border mazendaBorder = BorderFactory.createLineBorder(Color.MAGENTA, 1);
+      Border emptyBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+      Border compoundBorder = BorderFactory.createCompoundBorder(mazendaBorder, emptyBorder);
+      todoPanel.setBorder(compoundBorder);
 
       JTextArea todoTextArea = new JTextArea(todo.getText());
       todoTextArea.setLineWrap(true);
@@ -161,8 +177,9 @@ public class View {
       todoPanel.add(todoTextArea, BorderLayout.CENTER);
       todoPanel.add(buttonPanel, BorderLayout.EAST);
 
-      pendingListPanel.add(todoPanel);
+      pendingListContainerPanel.add(todoPanel);
     }
+    pendingListPanel.add(pendingListContainerPanel,BorderLayout.CENTER);
 
     todoListContainerPanel.add(pendingListPanel);
 
@@ -182,12 +199,13 @@ public class View {
     for(TodoItem todo:in_progressTodoList ){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setPreferredSize(new Dimension(300, 50));
       todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
       todoPanel.setLayout(new BorderLayout());
 
       Border blueBorder = BorderFactory.createLineBorder(Color.BLUE, 1);
-      todoPanel.setBorder(blueBorder);
+      Border emptyBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+      Border compoundBorder = BorderFactory.createCompoundBorder(blueBorder, emptyBorder);
+      todoPanel.setBorder(compoundBorder);
 
       JTextArea todoTextArea = new JTextArea(todo.getText());
       todoTextArea.setLineWrap(true);
@@ -235,12 +253,13 @@ public class View {
     for(TodoItem todo: completedTodoList){
 
       JPanel todoPanel = new JPanel();
-      todoPanel.setPreferredSize(new Dimension(300, 50));
       todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
       todoPanel.setLayout(new BorderLayout());
 
-      Border greenBorder = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
-      todoPanel.setBorder(greenBorder);
+      Border darkGrayBorder = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
+      Border emptyBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+      Border compoundBorder = BorderFactory.createCompoundBorder(darkGrayBorder, emptyBorder);
+      todoPanel.setBorder(compoundBorder);
 
       JTextArea todoTextArea = new JTextArea(todo.getText());
       todoTextArea.setLineWrap(true);
