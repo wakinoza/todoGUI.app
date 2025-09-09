@@ -1,4 +1,4 @@
-package todoApp;
+package todo.app;
 
 import java.util.List;
 import javax.swing.JButton;
@@ -102,8 +102,8 @@ public class Controller {
    */
   public void makeTodoListPanel() {
     List<TodoItem> pendingTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.PENDING);
-    List<TodoItem> in_progressTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.IN_PROGRESS);
+    List<TodoItem> inProgressTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.IN_PROGRESS);
     List<TodoItem> completedTodoList = MODEL.getSpecifiedProgressgTodoList(Progress.COMPLETED);
-    VIEW.updateTodoListPanel(pendingTodoList, in_progressTodoList, completedTodoList, this);
+    VIEW.updateTodoListPanel(pendingTodoList, inProgressTodoList, completedTodoList, this);
   }
 }

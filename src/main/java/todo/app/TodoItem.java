@@ -1,4 +1,4 @@
-package todoApp;
+package todo.app;
 
 /**.
  * todo情報を保持するクラス

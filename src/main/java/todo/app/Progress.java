@@ -1,4 +1,4 @@
-package todoApp;
+package todo.app;
 
 /**.
  * todoの進捗情報を表す列挙型

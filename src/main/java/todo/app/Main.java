@@ -1,4 +1,4 @@
-package todoApp;
+package todo.app;
 
 import java.io.IOException;
 import java.nio.file.Files;
