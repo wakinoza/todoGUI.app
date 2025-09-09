@@ -118,7 +118,7 @@ public class View {
     pendingListPanel.setMaximumSize(fixedWidth);
 
     JLabel pendingDescriptionLabel = new JLabel("【未実施】");
-    pendingDescriptionLabel.setForeground(Color.ORANGE);
+    pendingDescriptionLabel.setForeground(Color.MAGENTA);
     pendingListPanel.add(pendingDescriptionLabel);
 
     for(TodoItem todo: pendingTodoList){
@@ -128,7 +128,7 @@ public class View {
       todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
       todoPanel.setLayout(new BorderLayout());
 
-      Border OrangeBorder = BorderFactory.createLineBorder(Color.ORANGE, 1);
+      Border OrangeBorder = BorderFactory.createLineBorder(Color.MAGENTA, 1);
       todoPanel.setBorder(OrangeBorder);
 
       JTextArea todoTextArea = new JTextArea(todo.getText());
@@ -223,7 +223,7 @@ public class View {
 
 
     JLabel CompletedDescriptionLabel = new JLabel("【完了済み】");
-    CompletedDescriptionLabel.setForeground(Color.GREEN);
+    CompletedDescriptionLabel.setForeground(Color.DARK_GRAY);
     CompletedListPanel.add(CompletedDescriptionLabel);
 
     for(TodoItem todo: completedTodoList){
@@ -233,7 +233,7 @@ public class View {
       todoPanel.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
       todoPanel.setLayout(new BorderLayout());
 
-      Border greenBorder = BorderFactory.createLineBorder(Color.GREEN, 1);
+      Border greenBorder = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
       todoPanel.setBorder(greenBorder);
 
       JTextArea todoTextArea = new JTextArea(todo.getText());
