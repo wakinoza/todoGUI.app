@@ -7,18 +7,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**.
+ * JSONファイルの読み書きを行うクラス
+ */
 public class DAO {
 
+  /**.
+   * コンストラクタ
+   *
+   * @param model Modelインスタンスへの参照
+   */
   public DAO(Model model) {
     model.setTodoItemList(readJSONFile());
   }
 
+  /**.
+   * JsonファイルからTodoItemインスタンスを読み込むメソッド
+   *
+   * @return TodoItemインススタンスのリスト
+   */
   public List<TodoItem> readJSONFile() {
     ObjectMapper mapper = new ObjectMapper();
     List<TodoItem> newTodoItemList = new ArrayList<>();
 
     try {
-      File file = new File(Main.getSaveDir(),"todos.json");
+      File file = new File(Main.getSaveDir(), "todos.json");
       if (file.exists()) {
         newTodoItemList = mapper.readValue(file, new TypeReference<List<TodoItem>>() {});
         System.out.println("JSONファイルからデータを読み込みました。");
@@ -30,6 +43,11 @@ public class DAO {
     return newTodoItemList;
   }
 
+  /**.
+   *  TodoItemインスタンスのリストをJSONファイルに保存するメソッド
+   *
+   * @param todoItemList TodoItemインスタンスのList
+   */
   public void writeJSONFile(List<TodoItem> todoItemList) {
     ObjectMapper mapper = new ObjectMapper();
 

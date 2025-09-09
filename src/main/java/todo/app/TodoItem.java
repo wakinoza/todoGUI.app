@@ -13,7 +13,11 @@ public class TodoItem {
   /**. 進捗情報を文字する列挙子*/
   private Progress progress;
 
-  public TodoItem () {
+  /**.
+   * コンストラクタ
+   *
+   */
+  public TodoItem() {
 
   }
 
@@ -23,7 +27,7 @@ public class TodoItem {
    * @param text テキスト入力欄の文字列情報
    * @param progress 進捗情報を文字する列挙子
    */
-  public TodoItem (String fileName, String text, Progress progress) {
+  public TodoItem(String fileName, String text, Progress progress) {
     this.fileName = fileName;
     this.text = text;
     this.progress = progress;
@@ -33,9 +37,11 @@ public class TodoItem {
   public String getFileName() {
     return this.fileName;
   }
+
   public String getText() {
     return this.text;
   }
+
   public Progress getProgress() {
     return this.progress;
   }
@@ -44,9 +50,11 @@ public class TodoItem {
   public void setFileName(String fileName) {
     this.fileName = fileName;
   }
+
   public void setText(String text) {
     this.text = text;
   }
+
   public void setProgress(Progress progress) {
     this.progress = progress;
   }

@@ -9,7 +9,7 @@ import java.util.List;
  * TodoItemインスタンスを管理するクラス
  */
 public class Model {
-  private List <TodoItem> todoItemList = new ArrayList<>();
+  private List<TodoItem> todoItemList = new ArrayList<>();
 
   /**. getterメソッド */
   public List<TodoItem> getTodoItemList() {
@@ -39,7 +39,7 @@ public class Model {
    * @param newProgress 新しい進捗列挙子
    */
   public void changeProgress(String fileName, Progress newProgress) {
-    for (TodoItem todo: todoItemList) {
+    for (TodoItem todo : todoItemList) {
       if (todo.getFileName().equals(fileName)) {
         todo.setProgress(newProgress);
         break;
@@ -53,7 +53,7 @@ public class Model {
    * @param fileName 削除したいファイル名
    */
   public void clearTodoItem(String fileName) {
-    for (TodoItem todo: todoItemList) {
+    for (TodoItem todo : todoItemList) {
       if (todo.getFileName().equals(fileName)) {
         todoItemList.remove(todo);
         break;
@@ -64,13 +64,13 @@ public class Model {
   /**.
    * 指定した進捗のTodoItemを抽出するメソッド
    *
-   * @param SpecifiedProgress 抽出したい進捗列挙子
+   * @param progress 抽出したい進捗列挙子
    * @return 指定した進捗のTodoItemのList
    */
-  public List<TodoItem> getSpecifiedProgressgTodoList(Progress SpecifiedProgress) {
-    List <TodoItem> answers = new ArrayList<>();
-    for (TodoItem todo: todoItemList) {
-      if (todo.getProgress() == SpecifiedProgress) {
+  public List<TodoItem> getSpecifiedProgressgTodoList(Progress progress) {
+    List<TodoItem> answers = new ArrayList<>();
+    for (TodoItem todo : todoItemList) {
+      if (todo.getProgress() == progress) {
         answers.add(todo);
       }
     }
