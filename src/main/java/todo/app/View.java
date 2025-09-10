@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -72,12 +73,14 @@ public class View {
     return this.TEXT_INPUT.getText();
   }
 
-  public JPanel getTodoCreatePanel() {
-    return this.TODO_CREATE_PANEL;
-  }
-
-  public JPanel getTodoListPanel() {
-    return this.TODO_LIST_PANEL;
+  /**.
+   * MainFrameにTODO_LIST_PANELとTODO_CREATE_PANELを配置するメソッド
+   *
+   * @param frame MainFrameのインスタンスへの参照
+   */
+  public void addToMainFrame(JFrame frame) {
+    frame.add(this.TODO_LIST_PANEL, BorderLayout.CENTER);
+    frame.add(this.TODO_CREATE_PANEL, BorderLayout.SOUTH);
   }
 
   /**.

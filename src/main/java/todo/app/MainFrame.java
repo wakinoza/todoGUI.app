@@ -28,8 +28,7 @@ public class MainFrame extends JFrame {
 
     setLayout(new BorderLayout());
 
-    add(view.getTodoListPanel(), BorderLayout.CENTER);
-    add(view.getTodoCreatePanel(), BorderLayout.SOUTH);
+    view.addToMainFrame(this);
 
     controller.setupTodoCreateListeners();
   }
