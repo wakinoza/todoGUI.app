@@ -14,12 +14,10 @@ public class TodoItem {
   private Progress progress;
 
   /**.
-   * コンストラクタ
+   * JSONファイル用のコンストラクタ
    *
    */
-  public TodoItem() {
-
-  }
+  public TodoItem() { }
 
   /**.
    * コンストラクタ

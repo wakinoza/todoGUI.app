@@ -3,6 +3,7 @@ package todo.app;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -67,27 +68,14 @@ public class View {
   }
 
   /**. getterメソッド */
-  @SuppressWarnings("EI_EXPOSE_REP")
-  public JTextField getTextInput() {
-    return this.TEXT_INPUT;
+  public String getTextInput() {
+    return this.TEXT_INPUT.getText();
   }
 
-  @SuppressWarnings("EI_EXPOSE_REP")
   public JPanel getTodoCreatePanel() {
     return this.TODO_CREATE_PANEL;
   }
 
-  @SuppressWarnings("EI_EXPOSE_REP")
-  public JButton getSaveButton() {
-    return this.SAVE_BUTTON;
-  }
-
-  @SuppressWarnings("EI_EXPOSE_REP")
-  public JButton getTextClearButton() {
-    return this.TEXT_CLEAR_BUTTON;
-  }
-
-  @SuppressWarnings("EI_EXPOSE_REP")
   public JPanel getTodoListPanel() {
     return this.TODO_LIST_PANEL;
   }
@@ -100,6 +88,25 @@ public class View {
   public void setTextInputContent(String content) {
     TEXT_INPUT.setText(content);
   }
+
+  /**.
+   * todo保存ボタンのリスナーをセットアップするメソッド
+   *
+   * @param listener アクションリスナー
+   */
+  public void setupSaveButtonListener(ActionListener listener) {
+    this.SAVE_BUTTON.addActionListener(listener);
+  }
+
+  /**.
+   * テキスト削除ボタンのリスナーをセットアップするメソッド
+   *
+   * @param listener アクションリスナー
+   */
+  public void setupTextClearButtonListener(ActionListener listener) {
+    this.TEXT_CLEAR_BUTTON.addActionListener(listener);
+  }
+
 
   /**.
    * todo一覧を表示するメソッド

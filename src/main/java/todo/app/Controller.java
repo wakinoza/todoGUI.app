@@ -33,8 +33,8 @@ public class Controller {
   public void setupTodoCreateListeners() {
 
     //todo保存ボタン
-    VIEW.getSaveButton().addActionListener(e -> {
-      String content = VIEW.getTextInput().getText();
+    VIEW.setupSaveButtonListener(e -> {
+      String content = VIEW.getTextInput();
 
       if (content.isEmpty()) {
         JOptionPane.showMessageDialog(null, "内容が記載されていません。", "Error", JOptionPane.ERROR_MESSAGE);
@@ -49,7 +49,7 @@ public class Controller {
     });
 
     //テキスト削除ボタン
-    VIEW.getTextClearButton().addActionListener(e -> VIEW.setTextInputContent(""));
+    VIEW.setupTextClearButtonListener(e -> VIEW.setTextInputContent(""));
 
   }
 
