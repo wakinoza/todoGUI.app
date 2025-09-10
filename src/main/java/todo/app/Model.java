@@ -13,12 +13,12 @@ public class Model {
 
   /**. getterメソッド */
   public List<TodoItem> getTodoItemList() {
-    return this.todoItemList;
+    return new ArrayList<>(this.todoItemList);
   }
 
   /**. setterメソッド */
   public void setTodoItemList(List<TodoItem> newList) {
-    this.todoItemList = newList;
+    this.todoItemList = new ArrayList<>(newList);
   }
 
   /**. テキストエリアの文字列データから、TodoItemインスタンスを生成するメソッド
